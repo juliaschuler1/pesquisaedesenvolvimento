@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/500.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/400-italic.css";
+
+/*
+ * Beauty Development Studio — Design system
+ * As variáveis --brand-* podem ser sobrescritas por workspace (Configurações → Identidade visual).
+ */
+:root {
+  --brand-bg: #fff7fa;        /* Fundo principal */
+  --brand-blush: #fce4ec;     /* Rosa extremamente claro */
+  --brand-pastel: #f4c2d7;    /* Rosa pastel */
+  --brand-mid: #e9a8c2;       /* Rosa intermediário */
+  --brand-accent: #d98baa;    /* Rosa de destaque */
+  --brand-deep: #b76e8c;      /* Rosa queimado — botões */
+  --brand-ink: #583746;       /* Texto principal */
+  --brand-ink-soft: #95677b;  /* Texto secundário */
+  --brand-card: #ffffff;
+
+  /* Estados (discretos, com contraste AA sobre branco quando usados como texto) */
+  --state-success: #4f7d63;
+  --state-success-bg: #e6f1ea;
+  --state-warning: #9a6420;
+  --state-warning-bg: #fbefdc;
+  --state-danger: #b0414f;
+  --state-danger-bg: #fbe3e5;
+  --state-info: #6c5c9c;
+  --state-info-bg: #ece8f6;
+
+  --font-ui: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
+  --font-editorial: "Playfair Display", Georgia, serif;
+}
+
+@theme inline {
+  --color-bg: var(--brand-bg);
+  --color-blush: var(--brand-blush);
+  --color-pastel: var(--brand-pastel);
+  --color-mid: var(--brand-mid);
+  --color-accent: var(--brand-accent);
+  --color-deep: var(--brand-deep);
+  --color-ink: var(--brand-ink);
+  --color-ink-soft: var(--brand-ink-soft);
+  --color-card: var(--brand-card);
+  --color-success: var(--state-success);
+  --color-success-bg: var(--state-success-bg);
+  --color-warning: var(--state-warning);
+  --color-warning-bg: var(--state-warning-bg);
+  --color-danger: var(--state-danger);
+  --color-danger-bg: var(--state-danger-bg);
+  --color-info: var(--state-info);
+  --color-info-bg: var(--state-info-bg);
+
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-editorial);
+
+  --radius-card: 1.25rem;
+  --radius-control: 0.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(88 55 70 / 0.04), 0 8px 24px -12px rgb(183 110 140 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(88 55 70 / 0.05), 0 18px 40px -18px rgb(183 110 140 / 0.35);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--brand-bg);
+  color: var(--brand-ink);
+  font-family: var(--font-ui);
+  font-feature-settings: "ss01", "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-pastel);
+  color: var(--brand-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barra de rolagem discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-pastel) transparent;
+}
+
+/* Esqueleto de carregamento */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--brand-blush) 0%, #fff 50%, var(--brand-blush) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* Etapa em andamento na esteira: listras suaves */
+.stripe-progress {
+  background-image: repeating-linear-gradient(135deg, var(--brand-accent) 0 4px, var(--brand-pastel) 4px 8px);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-rise {
+  animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
