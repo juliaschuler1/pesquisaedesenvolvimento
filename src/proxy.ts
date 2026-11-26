@@ -8,7 +8,14 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return response;
+  if (!url || !key) {
+    // Sem variáveis do Supabase: mostra a página de configuração em vez de um erro genérico
+    if (request.nextUrl.pathname === "/configuracao-pendente") return response;
+    const to = request.nextUrl.clone();
+    to.pathname = "/configuracao-pendente";
+    to.search = "";
+    return NextResponse.redirect(to);
+  }
 
   const supabase = createServerClient(url, key, {
     cookies: {
