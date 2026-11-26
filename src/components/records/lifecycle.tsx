@@ -11,7 +11,7 @@ export function LifecycleActions({
   noun,
   compact,
 }: {
-  entity: "clients" | "projects" | "skus" | "custom_records";
+  entity: "clients" | "projects" | "skus" | "custom_records" | "suppliers" | "packaging_items" | "library_items";
   id: string;
   name: string;
   archivedAt: string | null;

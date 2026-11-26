@@ -68,6 +68,7 @@ try {
   await page.fill("#name", "Aurora Cosméticos Ltda.");
   await page.fill("#brand_name", "Aurora");
   await page.fill("#cnpj", "12.345.678/0001-90");
+  await page.waitForLoadState("networkidle");
   await page.setInputFiles("#logo", logoPath);
   await page.selectOption("#segment", "Marca própria");
   await page.getByRole("button", { name: "E-commerce próprio" }).click();
@@ -149,6 +150,7 @@ try {
 
   // 9. Upload de documento
   await page.goto(`${projectUrl}?aba=documentos`);
+  await page.waitForLoadState("networkidle");
   await page.setInputFiles('input[type="file"]', docPath);
   await toast(page, "Arquivo enviado.");
   await page.getByText(`laudo-${stamp}.pdf`).waitFor();

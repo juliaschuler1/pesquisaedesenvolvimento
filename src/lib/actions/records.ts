@@ -14,6 +14,9 @@ const TABLES = {
   projects: { table: "projects", label: "Projeto", path: "/projetos" },
   skus: { table: "skus", label: "SKU", path: "/projetos" },
   custom_records: { table: "custom_records", label: "Registro", path: "/" },
+  suppliers: { table: "suppliers", label: "Fornecedor", path: "/fornecedores" },
+  packaging_items: { table: "packaging_items", label: "Embalagem", path: "/embalagens" },
+  library_items: { table: "library_items", label: "Item", path: "/" },
 } as const;
 type Entity = keyof typeof TABLES;
 

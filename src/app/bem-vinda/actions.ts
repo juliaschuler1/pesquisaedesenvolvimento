@@ -11,6 +11,7 @@ export async function createWorkspace(_: { error?: string } | null, fd: FormData
   if (error) return { error: "Não foi possível criar o workspace. Tente novamente." };
   if (fd.get("demo") === "on") {
     await supabase.rpc("load_demo_data");
+    await supabase.rpc("load_demo_suppliers");
   }
   redirect("/dashboard");
 }

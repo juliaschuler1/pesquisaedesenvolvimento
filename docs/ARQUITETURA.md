@@ -34,6 +34,12 @@ organizations ─┬─ memberships (user, papel)        profiles (usuário)
                │                        ├─ schedule_items (peso, dependências, linha de base)
                │                        ├─ project_tabs (abas padrão ou por projeto)
                │                        └─ activities (tarefa, reunião, visita, follow-up…)
+               ├─ suppliers ─┬─ supplier_contacts
+               │             ├─ supplier_capabilities (aptidão por tipo de produto)
+               │             └─ project_suppliers (vínculo com projetos)
+               ├─ packaging_items ── packaging_compat (componentes compatíveis)
+               ├─ library_items (matérias-primas, ativos, fragrâncias, claims, referências)
+               ├─ import_batches (histórico de importações + dados para desfazer)
                ├─ custom_records (registros de módulos personalizados, JSONB)
                ├─ attachments (polimórfico: entidade + id)
                └─ audit_log (preenchido por trigger: quem, quando, o quê, diff)
@@ -47,6 +53,10 @@ Visões e funções: `project_progress` (progresso ponderado, etapa atual, etapa
 - **Rotas:** módulos com página própria têm rota em `src/app/(app)/<chave>`. Os demais caem em `src/app/(app)/[module]`, que mostra o módulo personalizado (registros + campos) ou o painel “previsto para a Fase N”.
 - **Campos personalizados:** `custom_fields.entity` = `clients`, `projects`, `skus` ou `module:<chave>`. Valores em `custom_data` / `data` (JSONB). Leitura e validação em `src/lib/custom-fields.ts`.
 - **Abas do projeto:** linhas com `project_id` nulo são o padrão do workspace; ao personalizar, o projeto ganha cópias próprias.
+
+## Importação de planilhas
+
+O motor (`src/lib/import/engine.ts`) roda no navegador e é testado em `tests/unit/import.test.ts`: detecta a linha de cabeçalho, seções (linhas só com a 1ª coluna, ex.: "EMBALAGENS / INSUMO"), cabeçalhos repetidos, colunas em matriz (valores Apto / Em avaliação / Suspenso / N/A) e o ano no cabeçalho da avaliação. O servidor (`src/lib/actions/import.ts`) revalida tudo, só preenche campos vazios por padrão e guarda em `import_batches` o necessário para desfazer (`undo_import`).
 
 ## Pastas
 

@@ -57,3 +57,11 @@ describe("importação em matriz", () => {
     expect(matchOption("Esmalte vidro e tampa", ["Esmalte"])).toBeNull();
   });
 });
+
+describe("CSV", () => {
+  it("lê CSV com ponto e vírgula, aspas e BOM", async () => {
+    const { parseCsv } = await import("@/lib/import/engine");
+    const g = parseCsv('﻿Fornecedor;Observações\n"Alfa; Ltda";"disse ""ok"""\r\nBeta;\n');
+    expect(g).toEqual([["Fornecedor", "Observações"], ["Alfa; Ltda", 'disse "ok"'], ["Beta", null]]);
+  });
+});

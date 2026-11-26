@@ -15,11 +15,12 @@ function show(v: unknown): string {
 }
 
 /** Linha do tempo do histórico de alterações (somente leitura; gravada por trigger no banco). */
-export async function AuditTimeline({ filter, tz, limit = 100 }: { filter: { client_id?: string; project_id?: string }; tz: string; limit?: number }) {
+export async function AuditTimeline({ filter, tz, limit = 100 }: { filter: { client_id?: string; project_id?: string; entity?: { type: string; id: string } }; tz: string; limit?: number }) {
   const supabase = await createClient();
   let q = supabase.from("audit_log").select("*").order("created_at", { ascending: false }).limit(limit);
   if (filter.client_id) q = q.eq("client_id", filter.client_id);
   if (filter.project_id) q = q.eq("project_id", filter.project_id);
+  if (filter.entity) q = q.eq("entity_type", filter.entity.type).eq("entity_id", filter.entity.id);
   const { data } = await q;
   const rows = (data ?? []) as AuditRow[];
 

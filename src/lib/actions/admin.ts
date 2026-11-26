@@ -58,7 +58,8 @@ export async function loadDemo(): Promise<ActionResult> {
   await requireAdmin();
   const supabase = await createClient();
   const { error } = await supabase.rpc("load_demo_data");
-  if (error) return { ok: false, message: "Não foi possível carregar os dados demonstrativos." };
+  const { error: e2 } = await supabase.rpc("load_demo_suppliers");
+  if (error || e2) return { ok: false, message: "Não foi possível carregar os dados demonstrativos." };
   revalidatePath("/", "layout");
   return { ok: true, message: "Dados demonstrativos carregados (marcados com [DEMO])." };
 }
@@ -214,7 +215,7 @@ export async function saveCustomField(_: ActionResult, fd: FormData): Promise<Ac
   const entity = str(fd, "entity", 80);
   const label = str(fd, "label", 80);
   const type = str(fd, "field_type", 30);
-  if (!entity || !/^(clients|projects|skus|module:[a-z0-9-]+)$/.test(entity)) return { ok: false, message: "Entidade inválida." };
+  if (!entity || !/^(clients|projects|skus|suppliers|packaging_items|module:[a-z0-9-]+|library:[a-z0-9-]+)$/.test(entity)) return { ok: false, message: "Entidade inválida." };
   if (!label) return { ok: false, message: "Informe o nome do campo.", errors: { label: "Obrigatório" } };
   if (!type || !(FIELD_TYPES as readonly string[]).includes(type)) return { ok: false, message: "Tipo de campo inválido." };
   const choices = (str(fd, "choices", 3000) ?? "").split(/\n|;/).map((x) => x.trim()).filter(Boolean);

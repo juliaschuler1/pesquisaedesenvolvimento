@@ -354,3 +354,39 @@ export function mergeDuplicates(records: ParsedRecord[]): ParsedRecord[] {
   }
   return out;
 }
+
+/** Lê CSV (separador ; ou , detectado automaticamente, aspas e BOM do Excel). */
+export function parseCsv(text: string): Grid {
+  const src = text.replace(/^﻿/, "");
+  const firstLine = src.split(/\r?\n/, 1)[0] ?? "";
+  const sep = (firstLine.match(/;/g)?.length ?? 0) > (firstLine.match(/,/g)?.length ?? 0) ? ";" : firstLine.includes("\t") && !firstLine.includes(",") ? "\t" : ",";
+  const rows: Grid = [];
+  let row: Cell[] = [];
+  let cur = "";
+  let quoted = false;
+  for (let i = 0; i < src.length; i++) {
+    const ch = src[i];
+    if (quoted) {
+      if (ch === '"' && src[i + 1] === '"') {
+        cur += '"';
+        i++;
+      } else if (ch === '"') quoted = false;
+      else cur += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === sep) {
+      row.push(cur);
+      cur = "";
+    } else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && src[i + 1] === "\n") i++;
+      row.push(cur);
+      rows.push(row);
+      row = [];
+      cur = "";
+    } else cur += ch;
+  }
+  if (cur || row.length) {
+    row.push(cur);
+    rows.push(row);
+  }
+  return rows.map((r) => r.map((c) => (c === "" ? null : c)));
+}

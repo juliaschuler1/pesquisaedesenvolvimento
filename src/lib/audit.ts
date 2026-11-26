@@ -7,6 +7,9 @@ const ENTITY: Record<string, { label: string; href?: (id: string, row: AuditRow)
   schedule_items: { label: "Etapa do cronograma", href: (_id, r) => (r.project_id ? `/projetos/${r.project_id}?aba=cronograma` : null) },
   activities: { label: "Atividade", href: (_id, r) => (r.project_id ? `/projetos/${r.project_id}?aba=atividades` : "/atividades") },
   custom_records: { label: "Registro" },
+  suppliers: { label: "Fornecedor", href: (id) => `/fornecedores/${id}` },
+  packaging_items: { label: "Embalagem", href: (id) => `/embalagens/${id}` },
+  library_items: { label: "Item de biblioteca" },
 };
 
 const ACTION: Record<string, string> = {

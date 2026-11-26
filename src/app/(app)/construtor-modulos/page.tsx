@@ -18,6 +18,9 @@ export default async function BuilderPage({ searchParams }: { searchParams: Prom
   const entities = [
     { value: "clients", label: "Clientes" },
     { value: "projects", label: "Projetos" },
+    { value: "suppliers", label: "Fornecedores" },
+    { value: "packaging_items", label: "Embalagens" },
+    ...["materias-primas", "ativos", "fragrancias", "claims", "referencias"].map((k) => ({ value: `library:${k}`, label: s.nav.flatMap((g) => g.modules).find((m) => m.key === k)?.label ?? k })),
     ...customModules.map((m) => ({ value: `module:${m.key}`, label: m.label })),
   ];
   const entity = entities.some((e) => e.value === sp.entidade) ? sp.entidade! : "clients";

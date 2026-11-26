@@ -24,6 +24,7 @@ import { SkuDialogButton } from "./sku-dialog";
 import { ScheduleItemButton } from "./schedule-dialog";
 import { TabsCustomizer } from "./tabs-customizer";
 import { CustomTabEditor } from "./custom-tab-editor";
+import { ProjectSuppliersCard } from "@/components/suppliers/project-suppliers";
 import { loadCustomFields } from "@/lib/data/custom-fields";
 import { displayCustomValue } from "@/lib/custom-fields";
 
@@ -229,6 +230,7 @@ async function Overview({ p, id, today, tz }: { p: ProjectRow; id: string; today
           </dl>
           <p className="border-t border-blush px-5 py-3 text-[12.5px] text-ink-soft">Cenários de custo e viabilidade chegam na Fase 4.</p>
         </Card>
+        <ProjectSuppliersCard projectId={id} />
         <Card>
           <CardHeader title="Comum a todos os SKUs" />
           <dl className="grid gap-3 p-5">

@@ -64,9 +64,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: SP
           <Link href="/briefings" className="inline-flex h-8 items-center gap-1.5 rounded-[10px] px-3 text-[13px] text-ink-soft border border-dashed border-pastel hover:bg-blush" title="Gerador de briefings — Fase 4">
             <Icon name="ClipboardList" size={15} /> Novo briefing <PlannedBadge phase={4} />
           </Link>
-          <Link href="/fornecedores" className="inline-flex h-8 items-center gap-1.5 rounded-[10px] px-3 text-[13px] text-ink-soft border border-dashed border-pastel hover:bg-blush" title="Banco de fornecedores — Fase 2">
-            <Icon name="Contact" size={15} /> Novo fornecedor <PlannedBadge phase={2} />
-          </Link>
+          <ButtonLink href="/fornecedores/novo" variant="secondary" icon="Contact" size="sm">Novo fornecedor</ButtonLink>
         </nav>
       </header>
 

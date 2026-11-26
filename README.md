@@ -3,7 +3,7 @@
 Plataforma de gestão de pesquisa, desenvolvimento e inovação de produtos cosméticos.
 Nome, logo e cores são personalizáveis em **Configurações → Identidade visual**.
 
-> **Situação atual: Fase 1 (Fundação) concluída.**
+> **Situação atual: Fases 1 e 2 concluídas.**
 > Veja o que já funciona e o que vem a seguir em [`docs/ROADMAP.md`](docs/ROADMAP.md).
 > Detalhes técnicos em [`docs/ARQUITETURA.md`](docs/ARQUITETURA.md).
 
@@ -34,9 +34,9 @@ Nenhuma senha ou chave deve ser colada no chat. Elas são digitadas apenas nos p
 ### 2. Criar as tabelas
 
 1. No menu esquerdo do Supabase, clique em **SQL Editor** → **New query**.
-2. Abra o arquivo `supabase/migrations/20261126000001_foundation.sql` deste projeto, copie **todo** o conteúdo, cole no editor e clique em **Run**. Deve aparecer “Success”.
-3. Repita com `supabase/migrations/20261126000002_bootstrap_and_functions.sql`.
-4. Sempre rode os arquivos **em ordem** (pelo número no nome). Nas próximas fases, novos arquivos serão adicionados. Rode apenas os novos.
+2. **Projeto novo:** abra `supabase/instalacao-completa.sql`, copie **todo** o conteúdo, cole no editor e clique em **Run**.
+3. **Projeto que já tem fases anteriores:** rode apenas os arquivos `supabase/atualizacao-fase-N.sql` que ainda não rodou, em ordem. Cada um termina mostrando ✅ ou ⚠️ em **Results**.
+4. Para conferir a Fase 1 a qualquer momento: `supabase/verificacao/verificar-fase-1.sql` (só lê, não altera nada).
 
 ### 3. Ajustar o login
 
@@ -154,7 +154,8 @@ A plataforma nunca simula a IA: sem chave, os recursos aparecem como “Não con
 
 ## Manutenção
 
-- **Atualizar o sistema:** cada fase traz novos arquivos em `supabase/migrations/`. Rode os novos no SQL Editor (em ordem) **antes** de publicar o código novo.
+- **Atualizar o sistema:** cada fase traz um `supabase/atualizacao-fase-N.sql`. Rode-o no SQL Editor **antes** de o código novo chegar ao ramo `main` (a Vercel publica o `main` automaticamente).
+- Os arquivos de instalação/atualização são gerados a partir de `supabase/migrations/` com `npm run sql:bundles`.
 - **Nunca edite** uma migração já aplicada em produção. Mudanças viram um arquivo novo.
 - **Lixeira:** registros excluídos ficam em Configurações → Lixeira até serem excluídos definitivamente.
 - **Histórico:** toda alteração fica em Documentação → Histórico de versões.

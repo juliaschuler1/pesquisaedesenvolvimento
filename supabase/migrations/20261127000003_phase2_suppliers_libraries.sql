@@ -383,12 +383,14 @@ begin
         from jsonb_each_text(coalesce(snap -> 'previous_capabilities', '{}'::jsonb)) x
        where c.supplier_id = (snap ->> 'id')::uuid and c.capability = x.key;
     end if;
+    if coalesce(snap -> 'before', '{}'::jsonb) <> '{}'::jsonb then
     execute format(
       'update public.%I t set %s where t.id = $1',
       tbl,
       (select string_agg(format('%I = (jsonb_populate_record(null::public.%I, $2)).%I', k, tbl, k), ', ')
          from jsonb_object_keys(snap -> 'before') k)
     ) using (snap ->> 'id')::uuid, snap -> 'before';
+    end if;
     restored := restored + 1;
   end loop;
 

@@ -19,9 +19,16 @@ Funcionando com banco permanente e testado ponta a ponta:
 - **Construtor de módulos:** módulos personalizados (tabela, cards, checklist; global/por cliente/por projeto) e campos personalizados (10 tipos) com versões
 - **Histórico de versões** automático e **Configurações** (identidade visual, fuso, dados demonstrativos, lixeira, status das integrações)
 
-## Fase 2 — Cadastros e bibliotecas
+## Fase 2 — Cadastros e bibliotecas ✅ concluída
 
-Fornecedores e mailing (múltiplos contatos), terceiristas, importação inteligente de planilhas (Excel/CSV com mapeamento, prévia, duplicidades, desfazer), biblioteca visual de embalagens e componentes, biblioteca técnica (matérias-primas, ativos, fragrâncias, claims, referências).
+- **Fornecedores e mailing:** ficha completa, múltiplos contatos, categorias, aptidão por tipo de produto (Apto / Em avaliação / Suspenso / N/A), avaliação de qualidade com ano, notas de qualidade/atendimento/prazo, condições comerciais, certificações, logo, catálogos e documentos, campos personalizados, histórico
+- **Fabricantes terceiristas:** mesma base, filtrada por categoria e aptidão ("quem é apto a fazer gloss?")
+- **Exportar mailing** (.xlsx) com os filtros atuais
+- **Fornecedores no projeto:** vínculo com papel (terceirista, embalagem…), visível no projeto e na ficha do fornecedor
+- **Importação inteligente** (Excel e CSV): escolha de aba e linha de cabeçalho, planilhas em matriz, seções da planilha → categorias, mapeamento automático editável, novos campos personalizados, prévia com duplicidades, atualização sem sobrescrever (ou substituição, se escolhida), relatório de erros, histórico e **desfazer**; modelos de planilha para baixar; destinos: fornecedores, clientes e embalagens
+- **Biblioteca de embalagens** com galeria visual de tipos (imagens ilustrativas identificadas como tal), fotos reais, ficha técnica completa, fornecedor, custo, MOQ, lead time, componentes compatíveis, desenhos técnicos e catálogos; vistas galeria, cards e tabela; bibliotecas de aplicadores e de válvulas/componentes
+- **Bibliotecas técnicas:** matérias-primas, ativos, fragrâncias, claims e tecnologias, referências e tendências — com categoria editável, fonte, link, data de atualização, imagem, documentos e campos próprios por biblioteca
+- Pesquisa global inclui fornecedores, embalagens e bibliotecas
 
 ## Fase 3 — Pesquisa e inteligência de mercado
 

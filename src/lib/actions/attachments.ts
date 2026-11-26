@@ -7,7 +7,7 @@ import { isUuid } from "@/lib/forms";
 import { DOCUMENT_TYPES, IMAGE_TYPES, MAX_DOCUMENT_BYTES } from "@/lib/storage-rules";
 import type { ActionResult } from "@/components/ui/interactive";
 
-const ENTITY_TYPES = ["clients", "projects", "skus", "custom_records"];
+const ENTITY_TYPES = ["clients", "projects", "skus", "custom_records", "suppliers", "packaging_items", "library_items"];
 
 /**
  * Registra um arquivo já enviado diretamente do navegador ao Storage privado.

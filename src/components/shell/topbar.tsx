@@ -14,10 +14,11 @@ const QUICK_ADD = [
   { href: "/atividades?nova=1", label: "Nova atividade", icon: "ListChecks" },
   { href: "/atividades?nova=1&tipo=follow_up", label: "Novo follow-up", icon: "MessagesSquare" },
   { href: "/briefings", label: "Novo briefing", icon: "ClipboardList", phase: 4 },
-  { href: "/fornecedores", label: "Novo fornecedor", icon: "Contact", phase: 2 },
+  { href: "/fornecedores/novo", label: "Novo fornecedor", icon: "Contact" },
+  { href: "/embalagens/novo", label: "Nova embalagem", icon: "Package" },
 ];
 
-const TYPE_LABEL: Record<string, string> = { cliente: "Cliente", projeto: "Projeto", sku: "SKU", registro: "Registro" };
+const TYPE_LABEL: Record<string, string> = { cliente: "Cliente", projeto: "Projeto", sku: "SKU", registro: "Registro", fornecedor: "Fornecedor", embalagem: "Embalagem", biblioteca: "Biblioteca" };
 
 export function Topbar({ fullName, email, onOpenMenu }: { fullName: string; email: string; onOpenMenu: () => void }) {
   return (

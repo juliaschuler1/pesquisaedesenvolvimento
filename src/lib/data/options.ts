@@ -17,3 +17,13 @@ export async function loadOptionSets(keys: string[]): Promise<Record<string, str
   }
   return out;
 }
+
+/** Tipos de embalagem com imagem ilustrativa. */
+export async function loadPackagingTypes(): Promise<{ label: string; image: string | null }[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("option_sets").select("options(label, image_path, position, archived_at)").eq("key", "packaging_types").maybeSingle();
+  return ((data?.options ?? []) as { label: string; image_path: string | null; position: number; archived_at: string | null }[])
+    .filter((o) => !o.archived_at)
+    .sort((a, b) => a.position - b.position)
+    .map((o) => ({ label: o.label, image: o.image_path }));
+}

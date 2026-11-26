@@ -16,12 +16,15 @@ export default async function SettingsPage() {
   const s = await getSession();
   const admin = isAdmin(s);
   const supabase = await createClient();
-  const [demoClients, trashClients, trashProjects, trashSkus, trashRecords] = await Promise.all([
+  const [demoClients, trashClients, trashProjects, trashSkus, trashRecords, trashSuppliers, trashPack, trashLib] = await Promise.all([
     supabase.from("clients").select("id", { count: "exact", head: true }).eq("is_demo", true),
     supabase.from("clients").select("id, name, deleted_at").not("deleted_at", "is", null).order("deleted_at", { ascending: false }),
     supabase.from("projects").select("id, name, deleted_at").not("deleted_at", "is", null).order("deleted_at", { ascending: false }),
     supabase.from("skus").select("id, name, deleted_at").not("deleted_at", "is", null).order("deleted_at", { ascending: false }),
     supabase.from("custom_records").select("id, title, deleted_at").not("deleted_at", "is", null).order("deleted_at", { ascending: false }),
+    supabase.from("suppliers").select("id, name, deleted_at").not("deleted_at", "is", null),
+    supabase.from("packaging_items").select("id, name, deleted_at").not("deleted_at", "is", null),
+    supabase.from("library_items").select("id, name, deleted_at").not("deleted_at", "is", null),
   ]);
   const hasDemo = (demoClients.count ?? 0) > 0;
   const trash = [
@@ -29,6 +32,9 @@ export default async function SettingsPage() {
     ...(trashProjects.data ?? []).map((r) => ({ entity: "projects" as const, id: r.id, name: r.name, kind: "Projeto", at: r.deleted_at! })),
     ...(trashSkus.data ?? []).map((r) => ({ entity: "skus" as const, id: r.id, name: r.name, kind: "SKU", at: r.deleted_at! })),
     ...(trashRecords.data ?? []).map((r) => ({ entity: "custom_records" as const, id: r.id, name: r.title, kind: "Registro", at: r.deleted_at! })),
+    ...(trashSuppliers.data ?? []).map((r) => ({ entity: "suppliers" as const, id: r.id, name: r.name, kind: "Fornecedor", at: r.deleted_at! })),
+    ...(trashPack.data ?? []).map((r) => ({ entity: "packaging_items" as const, id: r.id, name: r.name, kind: "Embalagem", at: r.deleted_at! })),
+    ...(trashLib.data ?? []).map((r) => ({ entity: "library_items" as const, id: r.id, name: r.name, kind: "Biblioteca", at: r.deleted_at! })),
   ].sort((a, b) => (a.at < b.at ? 1 : -1));
 
   return (
